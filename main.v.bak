@@ -1,0 +1,10 @@
+'include "GPC-Verilog.v"
+module main(inout [7:0]data, output [15:0]address, input clk, input rw)
+	reg 
+	gpc-cpu()
+
+
+
+
+
+endmodule

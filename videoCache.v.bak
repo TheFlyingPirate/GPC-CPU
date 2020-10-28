@@ -1,0 +1,19 @@
+module videoCache(input [15:0]cAddress,input [7:0]cData,output [15:0]vAddress,output [7:0]vData, input wEnable,input clk)
+	reg[15:0] iAddress;
+	reg[7:0] iData;
+	
+	reg[15:0] oAddress;
+	reg[7:0] oData;
+	
+	reg[15:0] sAddress;
+	reg[7:0] sData;
+
+	assign iAddress=cAddress;
+	assign iData=cData;
+	
+	assign vAddress=oAddress;
+	assign vData=oData;
+	
+	
+	
+endmodule

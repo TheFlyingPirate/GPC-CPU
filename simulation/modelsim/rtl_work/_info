@@ -1,0 +1,31 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dE:/Development/Hardware/GPC-Verilog/simulation/modelsim
+vgpc_cpu
+!s110 1603643523
+!i10b 1
+!s100 IgNzYHh>H:LaAjzX<f7jz3
+I^NzJ90Z:8dQ<5giCW]HdY0
+V`JN@9S9cnhjKRR_L]QIcM3
+R0
+w1603582918
+8E:/Development/Hardware/GPC-Verilog/GPC-Verilog.v
+FE:/Development/Hardware/GPC-Verilog/GPC-Verilog.v
+L0 1
+OV;L;10.3c;59
+r1
+!s85 0
+31
+!s108 1603643522.633000
+!s107 E:/Development/Hardware/GPC-Verilog/GPC-Verilog.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+E:/Development/Hardware/GPC-Verilog|E:/Development/Hardware/GPC-Verilog/GPC-Verilog.v|
+!i113 1
+o-vlog01compat -work work
+!s92 -vlog01compat -work work +incdir+E:/Development/Hardware/GPC-Verilog

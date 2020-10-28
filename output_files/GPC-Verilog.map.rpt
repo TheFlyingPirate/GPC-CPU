@@ -1,0 +1,396 @@
+Analysis & Synthesis report for GPC-Verilog
+Wed Oct 28 01:00:53 2020
+Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Registers Removed During Synthesis
+  9. General Register Statistics
+ 10. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 11. Port Connectivity Checks: "videoCache:vc"
+ 12. Port Connectivity Checks: "gpc_cpu:CPU"
+ 13. Post-Synthesis Netlist Statistics for Top Partition
+ 14. Elapsed Time Per Partition
+ 15. Analysis & Synthesis Messages
+ 16. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2014 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus II License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+
+
+
++---------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                    ;
++------------------------------------+--------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Wed Oct 28 01:00:53 2020      ;
+; Quartus II 64-Bit Version          ; 14.1.0 Build 186 12/03/2014 SJ Web Edition ;
+; Revision Name                      ; GPC-Verilog                                ;
+; Top-level Entity Name              ; main                                       ;
+; Family                             ; Cyclone IV E                               ;
+; Total logic elements               ; 468                                        ;
+;     Total combinational functions  ; 436                                        ;
+;     Dedicated logic registers      ; 151                                        ;
+; Total registers                    ; 151                                        ;
+; Total pins                         ; 26                                         ;
+; Total virtual pins                 ; 0                                          ;
+; Total memory bits                  ; 0                                          ;
+; Embedded Multiplier 9-bit elements ; 0                                          ;
+; Total PLLs                         ; 0                                          ;
++------------------------------------+--------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                     ; EP4CE10E22C8       ;                    ;
+; Top-level entity name                                                      ; main               ; GPC-Verilog        ;
+; Family name                                                                ; Cyclone IV E       ; Cyclone IV GX      ;
+; Use smart compilation                                                      ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto ROM Replacement                                                       ; On                 ; On                 ;
+; Auto RAM Replacement                                                       ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                 ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto RAM Block Balancing                                                   ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; On                 ; On                 ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
+; Synthesis Seed                                                             ; 1                  ; 1                  ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processors 2-8         ;   0.0%      ;
++----------------------------+-------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                    ;
++----------------------------------+-----------------+------------------------+---------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                      ; Library ;
++----------------------------------+-----------------+------------------------+---------------------------------------------------+---------+
+; GPC-Verilog.v                    ; yes             ; User Verilog HDL File  ; E:/Development/Hardware/GPC-Verilog/GPC-Verilog.v ;         ;
+; videoCache.v                     ; yes             ; User Verilog HDL File  ; E:/Development/Hardware/GPC-Verilog/videoCache.v  ;         ;
+; main.v                           ; yes             ; User Verilog HDL File  ; E:/Development/Hardware/GPC-Verilog/main.v        ;         ;
++----------------------------------+-----------------+------------------------+---------------------------------------------------+---------+
+
+
++---------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary             ;
++---------------------------------------------+-----------+
+; Resource                                    ; Usage     ;
++---------------------------------------------+-----------+
+; Estimated Total logic elements              ; 468       ;
+;                                             ;           ;
+; Total combinational functions               ; 436       ;
+; Logic element usage by number of LUT inputs ;           ;
+;     -- 4 input functions                    ; 268       ;
+;     -- 3 input functions                    ; 98        ;
+;     -- <=2 input functions                  ; 70        ;
+;                                             ;           ;
+; Logic elements by mode                      ;           ;
+;     -- normal mode                          ; 369       ;
+;     -- arithmetic mode                      ; 67        ;
+;                                             ;           ;
+; Total registers                             ; 151       ;
+;     -- Dedicated logic registers            ; 151       ;
+;     -- I/O registers                        ; 0         ;
+;                                             ;           ;
+; I/O pins                                    ; 26        ;
+;                                             ;           ;
+; Embedded Multiplier 9-bit elements          ; 0         ;
+;                                             ;           ;
+; Maximum fan-out node                        ; clk~input ;
+; Maximum fan-out                             ; 151       ;
+; Total fan-out                               ; 1984      ;
+; Average fan-out                             ; 3.07      ;
++---------------------------------------------+-----------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; |main                      ; 436 (1)           ; 151 (0)      ; 0           ; 0            ; 0       ; 0         ; 26   ; 0            ; |main               ; work         ;
+;    |gpc_cpu:CPU|           ; 435 (435)         ; 151 (151)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|gpc_cpu:CPU   ; work         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++----------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                               ;
++----------------------------------------+-----------------------------------------+
+; Register name                          ; Reason for Removal                      ;
++----------------------------------------+-----------------------------------------+
+; gpc_cpu:CPU|SR_Register[7]             ; Stuck at GND due to stuck port data_in  ;
+; gpc_cpu:CPU|SL_Register[0]             ; Stuck at GND due to stuck port data_in  ;
+; gpc_cpu:CPU|SL_Register[2]             ; Merged with gpc_cpu:CPU|SR_Register[0]  ;
+; gpc_cpu:CPU|NOT_Register[1]            ; Merged with gpc_cpu:CPU|SR_Register[0]  ;
+; gpc_cpu:CPU|SL_Register[3]             ; Merged with gpc_cpu:CPU|SR_Register[1]  ;
+; gpc_cpu:CPU|NOT_Register[2]            ; Merged with gpc_cpu:CPU|SR_Register[1]  ;
+; gpc_cpu:CPU|SL_Register[4]             ; Merged with gpc_cpu:CPU|SR_Register[2]  ;
+; gpc_cpu:CPU|NOT_Register[3]            ; Merged with gpc_cpu:CPU|SR_Register[2]  ;
+; gpc_cpu:CPU|SL_Register[5]             ; Merged with gpc_cpu:CPU|SR_Register[3]  ;
+; gpc_cpu:CPU|NOT_Register[4]            ; Merged with gpc_cpu:CPU|SR_Register[3]  ;
+; gpc_cpu:CPU|SL_Register[6]             ; Merged with gpc_cpu:CPU|SR_Register[4]  ;
+; gpc_cpu:CPU|NOT_Register[5]            ; Merged with gpc_cpu:CPU|SR_Register[4]  ;
+; gpc_cpu:CPU|SL_Register[7]             ; Merged with gpc_cpu:CPU|SR_Register[5]  ;
+; gpc_cpu:CPU|NOT_Register[6]            ; Merged with gpc_cpu:CPU|SR_Register[5]  ;
+; gpc_cpu:CPU|NOT_Register[7]            ; Merged with gpc_cpu:CPU|SR_Register[6]  ;
+; gpc_cpu:CPU|NOT_Register[0]            ; Merged with gpc_cpu:CPU|SL_Register[1]  ;
+; gpc_cpu:CPU|XOR_Register[0]            ; Merged with gpc_cpu:CPU|SUM_Register[0] ;
+; Total Number of Removed Registers = 17 ;                                         ;
++----------------------------------------+-----------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 151   ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 16    ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 92    ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                   ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output         ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------+
+; 258:1              ; 8 bits    ; 1376 LEs      ; 0 LEs                ; 1376 LEs               ; Yes        ; |main|gpc_cpu:CPU|B_Register[1]    ;
+; 258:1              ; 16 bits   ; 2752 LEs      ; 16 LEs               ; 2736 LEs               ; Yes        ; |main|gpc_cpu:CPU|StackPointer[8]  ;
+; 245:1              ; 8 bits    ; 1304 LEs      ; 8 LEs                ; 1296 LEs               ; Yes        ; |main|gpc_cpu:CPU|Y_Register[0]    ;
+; 137:1              ; 6 bits    ; 546 LEs       ; 30 LEs               ; 516 LEs                ; Yes        ; |main|gpc_cpu:CPU|A_Register[5]    ;
+; 249:1              ; 4 bits    ; 664 LEs       ; 4 LEs                ; 660 LEs                ; Yes        ; |main|gpc_cpu:CPU|StepCounter[0]   ;
+; 251:1              ; 8 bits    ; 1336 LEs      ; 16 LEs               ; 1320 LEs               ; Yes        ; |main|gpc_cpu:CPU|Y_Register[14]   ;
+; 126:1              ; 8 bits    ; 672 LEs       ; 8 LEs                ; 664 LEs                ; Yes        ; |main|gpc_cpu:CPU|X_Register[5]    ;
+; 126:1              ; 8 bits    ; 672 LEs       ; 8 LEs                ; 664 LEs                ; Yes        ; |main|gpc_cpu:CPU|X_Register[10]   ;
+; 151:1              ; 16 bits   ; 1600 LEs      ; 32 LEs               ; 1568 LEs               ; Yes        ; |main|gpc_cpu:CPU|MemoryPointer[1] ;
+; 269:1              ; 6 bits    ; 1074 LEs      ; 36 LEs               ; 1038 LEs               ; Yes        ; |main|gpc_cpu:CPU|MemoryBuffer[4]  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "videoCache:vc"                                                                          ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port     ; Type   ; Severity ; Details                                                                             ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; vAddress ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; vData    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "gpc_cpu:CPU"                                                                        ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; rw   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 26                          ;
+; cycloneiii_ff         ; 151                         ;
+;     ENA               ; 76                          ;
+;     ENA SLD           ; 16                          ;
+;     plain             ; 59                          ;
+; cycloneiii_io_obuf    ; 8                           ;
+; cycloneiii_lcell_comb ; 436                         ;
+;     arith             ; 67                          ;
+;         2 data inputs ; 23                          ;
+;         3 data inputs ; 44                          ;
+;     normal            ; 369                         ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 2                           ;
+;         2 data inputs ; 43                          ;
+;         3 data inputs ; 54                          ;
+;         4 data inputs ; 268                         ;
+;                       ;                             ;
+; Max LUT depth         ; 11.00                       ;
+; Average LUT depth     ; 4.85                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:04     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
+    Info: Processing started: Wed Oct 28 01:00:38 2020
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off GPC-Verilog -c GPC-Verilog
+Info (11104): Parallel Compilation has detected 8 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 4 of the 4 physical processors detected instead.
+Info (12021): Found 1 design units, including 1 entities, in source file gpc-verilog.v
+    Info (12023): Found entity 1: gpc_cpu
+Info (12021): Found 0 design units, including 0 entities, in source file gpc-test.v
+Info (12021): Found 1 design units, including 1 entities, in source file videocache.v
+    Info (12023): Found entity 1: videoCache
+Info (12021): Found 1 design units, including 1 entities, in source file main.v
+    Info (12023): Found entity 1: main
+Info (12127): Elaborating entity "main" for the top level hierarchy
+Info (12128): Elaborating entity "gpc_cpu" for hierarchy "gpc_cpu:CPU"
+Warning (10230): Verilog HDL assignment warning at GPC-Verilog.v(488): truncated value with size 16 to match size of target (8)
+Warning (10230): Verilog HDL assignment warning at GPC-Verilog.v(491): truncated value with size 16 to match size of target (8)
+Warning (10230): Verilog HDL assignment warning at GPC-Verilog.v(533): truncated value with size 16 to match size of target (8)
+Info (12128): Elaborating entity "videoCache" for hierarchy "videoCache:vc"
+Warning (10036): Verilog HDL or VHDL warning at videoCache.v(3): object "iData" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at videoCache.v(5): object "writeEnable" assigned a value but never read
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "address[8]" is stuck at GND
+    Warning (13410): Pin "address[9]" is stuck at GND
+    Warning (13410): Pin "address[10]" is stuck at GND
+    Warning (13410): Pin "address[11]" is stuck at GND
+    Warning (13410): Pin "address[12]" is stuck at GND
+    Warning (13410): Pin "address[13]" is stuck at GND
+    Warning (13410): Pin "address[14]" is stuck at GND
+    Warning (13410): Pin "address[15]" is stuck at GND
+Info (286030): Timing-Driven Synthesis is running
+Info (144001): Generated suppressed messages file E:/Development/Hardware/GPC-Verilog/output_files/GPC-Verilog.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "rw"
+Info (21057): Implemented 494 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 2 input pins
+    Info (21059): Implemented 16 output pins
+    Info (21060): Implemented 8 bidirectional pins
+    Info (21061): Implemented 468 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 16 warnings
+    Info: Peak virtual memory: 4797 megabytes
+    Info: Processing ended: Wed Oct 28 01:00:53 2020
+    Info: Elapsed time: 00:00:15
+    Info: Total CPU time (on all processors): 00:00:28
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in E:/Development/Hardware/GPC-Verilog/output_files/GPC-Verilog.map.smsg.
+
+
