@@ -11,7 +11,7 @@ module gpc_cpu (data, address, clk, rw);
 	reg regRw;
 
 	reg[3:0] StepCounter;
-	wire[7:0] MemoryOut;
+	wire[15:0] MemoryOut;
 	reg[7:0] MemoryBuffer;
 	wire[7:0] dataW;
 	reg[7:0] dataReg;
@@ -29,11 +29,12 @@ module gpc_cpu (data, address, clk, rw);
 	reg[15:0] Y_Register;	
 	reg[15:0] MemoryPointer;
 	reg[15:0] StackPointer;
-	
+	reg run;
+	reg[15:0] ClockCounter;
 	initial begin
-		MemoryPointer<=16'b0;
+		MemoryPointer<=16'h8000;
 		X_Register<=16'b0;
-		StackPointer<=16'b0;
+		StackPointer<=16'h7fff;
 		A_Register<=8'b0;
 		B_Register<=8'b0;
 		ZeroFlag<=1'b0;
@@ -41,11 +42,15 @@ module gpc_cpu (data, address, clk, rw);
 		CarryFlag<=1'b0;
 		StepCounter<=3'b0;
 		regRw<=1'b0;
+		run<=1'b0;
+		ClockCounter<=16'b0;
 	end
 	
 	
 	
-	always @ (posedge clk)
+	always @ (negedge clk)
+	begin
+	if(run==1'b1)
 	begin
 		//UpdateRegisters
 		OR_Register<=A_Register|B_Register;
@@ -529,6 +534,10 @@ module gpc_cpu (data, address, clk, rw);
 						
 						end
 		endcase
+	end
+	if(ClockCounter>2'b10)
+		run<=1'b1;
+	ClockCounter<=ClockCounter+1'b1;
 	end	
 	assign MemoryOut = MemoryPointer;
 	assign data = regRw ? MemoryBuffer:8'bZ;
