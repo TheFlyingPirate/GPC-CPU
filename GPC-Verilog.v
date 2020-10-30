@@ -43,12 +43,15 @@ module gpc_cpu (data, address, clk, rw);
 		StepCounter<=3'b0;
 		regRw<=1'b0;
 		run<=1'b0;
-		ClockCounter<=16'b0;
+		ClockCounter=16'b0;
 	end
 	
+	always @(negedge clk)
+	begin
+	dataReg=dataW;
+	end
 	
-	
-	always @ (negedge clk)
+	always @ (posedge clk)
 	begin
 	if(run==1'b1)
 	begin
@@ -67,13 +70,13 @@ module gpc_cpu (data, address, clk, rw);
 			EQFlag=1'b01;
 		else
 			EQFlag=1'b00;
-		dataReg<=dataW;
+		
 		if(StepCounter<3)
 		begin
 			if(StepCounter==1)
 				regRw<=1'b0;
 			else
-				INST_Register=dataReg;
+				INST_Register=dataW;
 		end else 
 		case(INST_Register)
 		
@@ -88,14 +91,14 @@ module gpc_cpu (data, address, clk, rw);
 		
 			8'h01:	case(StepCounter)								//LDA
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5:	MemoryPointer<=MemoryPointer+1'b1;
 							6: begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;
+									X_Register<=X_Register+dataW;
 								end 
 							7:	MemoryPointer<=X_Register;
-							8:	A_Register<=dataReg;
+							8:	A_Register<=dataW;
 							default:	begin
 											MemoryPointer<=Y_Register;
 											StepCounter<=1'b0;	
@@ -103,7 +106,7 @@ module gpc_cpu (data, address, clk, rw);
 						endcase
 			8'h02:	case(StepCounter)								//LDA(IMM)
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4: A_Register<=dataReg;
+							4: A_Register<=dataW;
 							default: begin
 											MemoryPointer<=MemoryPointer+1'b1;
 											StepCounter<=1'b0;
@@ -111,14 +114,14 @@ module gpc_cpu (data, address, clk, rw);
 						endcase
 			8'h03:	case(StepCounter)								//LDB
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5:	MemoryPointer<=MemoryPointer+1'b1;
 							6: begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;
+									X_Register<=X_Register+dataW;
 								end 
 							7:	MemoryPointer<=X_Register;
-							8:	B_Register<=dataReg;
+							8:	B_Register<=dataW;
 							default:	begin
 											MemoryPointer<=Y_Register;
 											StepCounter<=1'b0;	
@@ -126,7 +129,7 @@ module gpc_cpu (data, address, clk, rw);
 						endcase
 			8'h04:	case(StepCounter)								//LDB(IMM)
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4: B_Register<=dataReg;
+							4: B_Register<=dataW;
 							default: begin
 											MemoryPointer<=MemoryPointer+1'b1;
 											StepCounter<=1'b0;
@@ -134,11 +137,11 @@ module gpc_cpu (data, address, clk, rw);
 						endcase						
 			8'h05:	case(StepCounter)								//STA
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5: MemoryPointer<=MemoryPointer+1'b1;
 							6:	begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;									
+									X_Register<=X_Register+dataW;									
 								end
 							7:	begin
 									MemoryPointer<=X_Register;
@@ -147,17 +150,17 @@ module gpc_cpu (data, address, clk, rw);
 							8:	MemoryBuffer<=A_Register;
 							default: begin
 											regRw=1'b0;
-											MemoryPointer<=MemoryPointer+1'b1;
+											MemoryPointer<=Y_Register+1'b1;
 											StepCounter<=1'b0;
 										end
 						endcase
 			8'h06:	case(StepCounter)								//STB
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5: MemoryPointer<=MemoryPointer+1'b1;
 							6:	begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;									
+									X_Register<=X_Register+dataW;									
 								end
 							7:	begin
 									MemoryPointer<=X_Register;
@@ -166,7 +169,7 @@ module gpc_cpu (data, address, clk, rw);
 							8:	MemoryBuffer<=A_Register;
 							default: begin
 											regRw=1'b0;
-											MemoryPointer<=MemoryPointer+1'b1;
+											MemoryPointer<=Y_Register+1'b1;
 											StepCounter<=1'b0;
 										end
 						endcase
@@ -180,11 +183,11 @@ module gpc_cpu (data, address, clk, rw);
 						end
 			8'h11:	case(StepCounter)								//ADD
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5: MemoryPointer<=MemoryPointer+1'b1;
 							6:	begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;									
+									X_Register<=X_Register+dataW;									
 								end
 							7:	begin
 									MemoryPointer<=X_Register;
@@ -193,7 +196,7 @@ module gpc_cpu (data, address, clk, rw);
 							8:	MemoryBuffer<=SUM_Register;
 							default: begin
 											regRw=1'b0;
-											MemoryPointer<=MemoryPointer+1'b1;
+											MemoryPointer<=Y_Register+4'h1;
 											StepCounter<=1'b0;
 										end
 						endcase	
@@ -209,12 +212,12 @@ module gpc_cpu (data, address, clk, rw);
 						end
 			8'h13:	case(StepCounter)								//ADC
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5: MemoryPointer<=MemoryPointer+1'b1;
 							6:	begin
 									{CarryFlag,SUM_Register}<={1'b0,A_Register} + {1'b0,B_Register};
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;									
+									X_Register<=X_Register+dataW;									
 								end
 							7:	begin
 									MemoryPointer<=X_Register;
@@ -223,7 +226,7 @@ module gpc_cpu (data, address, clk, rw);
 							8:	MemoryBuffer<=SUM_Register;
 							default: begin
 											regRw=1'b0;
-											MemoryPointer<=MemoryPointer+1'b1;
+											MemoryPointer<=Y_Register+1'b1;
 											StepCounter<=1'b0;
 										end
 						endcase			
@@ -234,11 +237,11 @@ module gpc_cpu (data, address, clk, rw);
 						end
 			8'h15:	case(StepCounter)								//OR
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5: MemoryPointer<=MemoryPointer+1'b1;
 							6:	begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;									
+									X_Register<=X_Register+dataW;									
 								end
 							7:	begin
 									MemoryPointer<=X_Register;
@@ -247,7 +250,7 @@ module gpc_cpu (data, address, clk, rw);
 							8:	MemoryBuffer<=OR_Register;
 							default: begin
 											regRw=1'b0;
-											MemoryPointer<=MemoryPointer+1'b1;
+											MemoryPointer<=Y_Register+1'b1;
 											StepCounter<=1'b0;
 										end
 						endcase						
@@ -258,11 +261,11 @@ module gpc_cpu (data, address, clk, rw);
 						end
 			8'h17:	case(StepCounter)								//AND
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5: MemoryPointer<=MemoryPointer+1'b1;
 							6:	begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;									
+									X_Register<=X_Register+dataW;									
 								end
 							7:	begin
 									MemoryPointer<=X_Register;
@@ -271,7 +274,7 @@ module gpc_cpu (data, address, clk, rw);
 							8:	MemoryBuffer<=AND_Register;
 							default: begin
 											regRw=1'b0;
-											MemoryPointer<=MemoryPointer+1'b1;
+											MemoryPointer<=Y_Register+1'b1;
 											StepCounter<=1'b0;
 										end
 						endcase				
@@ -282,11 +285,11 @@ module gpc_cpu (data, address, clk, rw);
 						end
 			8'h19:	case(StepCounter)								//NOT
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5: MemoryPointer<=MemoryPointer+1'b1;
 							6:	begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;									
+									X_Register<=X_Register+dataW;									
 								end
 							7:	begin
 									MemoryPointer<=X_Register;
@@ -295,7 +298,7 @@ module gpc_cpu (data, address, clk, rw);
 							8:	MemoryBuffer<=SUM_Register;
 							default: begin
 											regRw=1'b0;
-											MemoryPointer<=MemoryPointer+1'b1;
+											MemoryPointer<=Y_Register+1'b1;
 											StepCounter<=1'b0;
 										end
 						endcase						
@@ -306,11 +309,11 @@ module gpc_cpu (data, address, clk, rw);
 						end
 			8'h1b:	case(StepCounter)								//XOR
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5: MemoryPointer<=MemoryPointer+1'b1;
 							6:	begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;									
+									X_Register<=X_Register+dataW;									
 								end
 							7:	begin
 									MemoryPointer<=X_Register;
@@ -319,7 +322,7 @@ module gpc_cpu (data, address, clk, rw);
 							8:	MemoryBuffer<=XOR_Register;
 							default: begin
 											regRw=1'b0;
-											MemoryPointer<=MemoryPointer+1'b1;
+											MemoryPointer<=Y_Register+1'b1;
 											StepCounter<=1'b0;
 										end
 						endcase
@@ -330,11 +333,11 @@ module gpc_cpu (data, address, clk, rw);
 						end
 			8'h1d:	case(StepCounter)								//SL
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5: MemoryPointer<=MemoryPointer+1'b1;
 							6:	begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;									
+									X_Register<=X_Register+dataW;									
 								end
 							7:	begin
 									MemoryPointer<=X_Register;
@@ -343,7 +346,7 @@ module gpc_cpu (data, address, clk, rw);
 							8:	MemoryBuffer<=SL_Register;
 							default: begin
 											regRw=1'b0;
-											MemoryPointer<=MemoryPointer+1'b1;
+											MemoryPointer<=Y_Register+1'b1;
 											StepCounter<=1'b0;
 										end
 						endcase
@@ -354,11 +357,11 @@ module gpc_cpu (data, address, clk, rw);
 						end
 			8'h1f:	case(StepCounter)								//SR
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5: MemoryPointer<=MemoryPointer+1'b1;
 							6:	begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;									
+									X_Register<=X_Register+dataW;									
 								end
 							7:	begin
 									MemoryPointer<=X_Register;
@@ -367,7 +370,7 @@ module gpc_cpu (data, address, clk, rw);
 							8:	MemoryBuffer<=SR_Register;
 							default: begin
 											regRw=1'b0;
-											MemoryPointer<=MemoryPointer+1'b1;
+											MemoryPointer<=Y_Register+1'b1;
 											StepCounter<=1'b0;
 										end
 						endcase
@@ -381,11 +384,11 @@ module gpc_cpu (data, address, clk, rw);
 			
 			8'h30: 	case(StepCounter)								//JMP
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5:	MemoryPointer<=MemoryPointer+1'b1;
 							6: begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;
+									X_Register<=X_Register+dataW;
 								end 
 							default:	begin
 											MemoryPointer<=X_Register;
@@ -400,11 +403,11 @@ module gpc_cpu (data, address, clk, rw);
 						begin
 							case(StepCounter)								
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5:	MemoryPointer<=MemoryPointer+1'b1;
 							6: begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;
+									X_Register<=X_Register+dataW;
 								end 
 							default:	begin
 											MemoryPointer<=X_Register;
@@ -421,11 +424,11 @@ module gpc_cpu (data, address, clk, rw);
 						begin
 							case(StepCounter)								
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5:	MemoryPointer<=MemoryPointer+1'b1;
 							6: begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;
+									X_Register<=X_Register+dataW;
 								end 
 							default:	begin
 											MemoryPointer<=X_Register;
@@ -442,11 +445,11 @@ module gpc_cpu (data, address, clk, rw);
 						begin
 							case(StepCounter)								
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5:	MemoryPointer<=MemoryPointer+1'b1;
 							6: begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;
+									X_Register<=X_Register+dataW;
 								end 
 							default:	begin
 											MemoryPointer<=X_Register;
@@ -463,11 +466,11 @@ module gpc_cpu (data, address, clk, rw);
 						begin
 							case(StepCounter)								
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5:	MemoryPointer<=MemoryPointer+1'b1;
 							6: begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;
+									X_Register<=X_Register+dataW;
 								end 
 							default:	begin
 											MemoryPointer<=X_Register;
@@ -478,11 +481,11 @@ module gpc_cpu (data, address, clk, rw);
 						end
 			8'h35: 	case(StepCounter)								//JSR
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5:	MemoryPointer<=MemoryPointer+1'b1;
 							6: begin
-									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;
+									Y_Register<=MemoryPointer+1'b1;
+									X_Register<=X_Register+dataW;
 								end 
 							7: begin
 									MemoryPointer=StackPointer;
@@ -503,10 +506,10 @@ module gpc_cpu (data, address, clk, rw);
 			8'h36:	case(StepCounter)									//RSR
 							3:	StackPointer<=StackPointer + 1'b1;
 							4:	MemoryPointer<=StackPointer;
-							5: Y_Register<=dataReg;
+							5: Y_Register<=dataW;
 							6:	StackPointer<=StackPointer + 1'b1;
 							7: MemoryPointer<=StackPointer;
-							8: Y_Register<=Y_Register+(dataReg<<8);
+							8: Y_Register<=Y_Register+(dataW<<8);
 							default:	begin
 											MemoryPointer<=Y_Register;
 											StepCounter<=1'b0;
@@ -520,11 +523,11 @@ module gpc_cpu (data, address, clk, rw);
 						begin
 							case(StepCounter)								
 							3:	MemoryPointer<=MemoryPointer+1'b1;
-							4:	X_Register<=dataReg<<8;
+							4:	X_Register<=dataW<<8;
 							5:	MemoryPointer<=MemoryPointer+1'b1;
 							6: begin
 									Y_Register<=MemoryPointer;
-									X_Register<=X_Register+dataReg;
+									X_Register<=X_Register+dataW;
 								end 
 							default:	begin
 											MemoryPointer<=X_Register;
